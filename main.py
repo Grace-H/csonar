@@ -128,16 +128,19 @@ class Control:
 
     def handle_silence(self):
         new_paths = []
-        for k, path in enumerate(self.paths):
-            print("Testing path:", str(k))
-            for i in range(path.i - 4, path.i + 4):
-                for j in range(path.j - 4, path.j + 4):
-                    print(i, j)
-                    if self.mp.test_path(i, j, path):
-                        new_path = Path(i, j)
-                        new_path.set_parent(path, self.mp)
-                        self.mp.move_path(i, j, new_path)
-                        new_paths.append(new_path)
+        for path in self.paths:
+            for i in range(path.i - 4, path.i + 5):
+                if self.mp.test_path(i, path.j, path):
+                    new_path = Path(i, path.j)
+                    new_path.set_parent(path, self.mp)
+                    self.mp.move_path(i, path.j, new_path)
+                    new_paths.append(new_path)
+            for j in range(path.j - 4, path.j + 5):
+                if self.mp.test_path(path.i, j, path):
+                    new_path = Path(path.i, j)
+                    new_path.set_parent(path, self.mp)
+                    self.mp.move_path(path.i, j, new_path)
+                    new_paths.append(new_path)
         for path in new_paths:
             self.paths.append(path)
 
