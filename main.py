@@ -47,7 +47,7 @@ class Cell:
 
     def __str__(self):
         if self.island:
-            return 'X'
+            return 'O'
         return '.'
 
 
@@ -67,8 +67,8 @@ class Sonar:
         for l in lines:
             row = []
             for c in l:
-                if c == '.' or c == 'X':
-                    row.append(Cell(c == 'X'))
+                if c == '.' or c == 'O':
+                    row.append(Cell(c == 'O'))
             self.mp.append(row)
 
     def test_path(self, i, j, path):
@@ -144,7 +144,7 @@ class Control:
     def print_map(self):
         template = self.mp.gen_template()
         for path in self.paths:
-            template[path.i][path.j] = 'o'
+            template[path.i][path.j] = 'x'
         print("     A   B   C   D   E   F   G   H   I   J   K   L   M   N   O")
         print("  -|-------------------|-------------------|------------------")
         for i, row in enumerate(template):
